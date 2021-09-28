@@ -1,0 +1,46 @@
+---
+- name: Atualizando pacotes 'apt update/ apt augrade'
+  apt:
+    update_cache: yes
+    upgrade: full
+
+- name: Instalando 'Python 3'
+  apt:
+    name: "{{ packages}}"
+  vars:
+    packages:
+    - python3
+    - python3-pip
+    - python3-dev
+
+- name: Instalando Prerequisitos
+  apt:
+    name: "{{ packages}}"
+  vars:
+    packages:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+
+- name: Add Docket GPG apt Key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present  
+
+- name: Adicionando repositório do Docket
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu bionic stable
+    state: present
+    update_cache: yes
+
+- name: Instalando Docket
+  apt:
+    name: docker-ce
+    state: latest
+    update_cache: yes
+
+- name: Instatalndo módulo docket para python
+  pip:
+    name: docker
+...

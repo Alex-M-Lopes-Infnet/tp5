@@ -1,0 +1,7 @@
+- name: Instalando Wordpress via Docker
+  hosts: wordpress
+  become: yes
+  roles:
+    - docker
+    - MySQL
+    - Wordpress

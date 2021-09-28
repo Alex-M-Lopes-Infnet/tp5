@@ -1,0 +1,10 @@
+---
+- name: Cria o container do WordPress
+  docker_container:
+    name: wordpress
+    image: wordpress
+    links:
+      - "wordpressBD:mysql"
+    ports:
+      - "80:80"
+...
